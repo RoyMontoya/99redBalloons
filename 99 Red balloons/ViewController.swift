@@ -9,10 +9,16 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    @IBOutlet weak var balloonLabel: UILabel!
+    @IBOutlet weak var backgroundImage: UIImageView!
+    
+    var Balloons:[Balloon] = []
+    var currentIndex = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+       self.creeateBalloons()
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -21,5 +27,22 @@ class ViewController: UIViewController {
     }
 
 
+    @IBAction func NextButtonPressed(sender: UIBarButtonItem) {
+        let balloon = Balloons[currentIndex]
+        balloonLabel.text = "\(balloon.number) balloon"
+        backgroundImage.image = balloon.image
+        
+        currentIndex += 1
+        
+    }
+    
+    func creeateBalloons(){
+        for var i = 0; i <= 100 ; ++i{
+            var balloon = Balloon()
+            balloon.number = i
+            balloon.image = UIImage(named: balloon.getRandomNameImage())
+            self.Balloons.append(balloon)
+        }
+    }
 }
 
